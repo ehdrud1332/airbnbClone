@@ -14,11 +14,12 @@ const InputField = ({labelText, labelTextSize, labelColor, textColor, borderBott
         <View style={[{marginBottom: 30}, styles.wrapper]}>
             <Text style={[{color, fontSize}, styles.label]}>{labelText}</Text>
             <TextInput
-                autoCorrect={false}
                 style={[
                     {color: inputColor, borderBottomColor: borderBottom},
                     styles.inputFiled
                 ]}
+                autoCapitalize='none'
+                inputType='email'
             />
         </View>
     );

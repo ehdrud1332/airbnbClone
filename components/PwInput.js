@@ -59,6 +59,7 @@ const PwInput = ({labelText, labelTextSize, labelColor, textColor, borderBottomC
                     {color: inputColor, borderBottomColor: borderBottom},
                     styles.inputFiled
                 ]}
+                inputType='password'
             />
 
         </View>

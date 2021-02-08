@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import Firebase from '../config/Firebase';
-import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView} from 'react-native';
+import {Feather} from '@expo/vector-icons';
+import colors from "../color";
 
-const Signup = () => {
+
+const Signup = ({navigation}) => {
 
     const [result, setResult] = useState({
         name: "",
@@ -38,69 +41,108 @@ const Signup = () => {
 
         Firebase.auth()
             .createUserWithEmailAndPassword(result.email, result.password)
-            .then(() => console.log("123123123"))
+            .then(() => console.log("12123"))
             .catch(error => console.log(error))
 
     }
 
     return (
-        <View style={styles.container}>
-            <TextInput
-                style={styles.inputBox}
-                value={result.email}
-                onChangeText={(val) => textInputChange(val)}
-                placeholder="Email"
-                autoCapitalize='none'
-            />
-            <TextInput
-                style={styles.inputBox}
-                value={result.password}
-                onChangeText={(val) => handlePasswordChange(val)}
-                placeholder='password'
-                secureTextEntry={true}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleSignup}>
-                <Text style={styles.buttonText}>Signup</Text>
-            </TouchableOpacity>
-        </View>
+        <KeyboardAvoidingView style={styles.wrapper} behavir='padding'>
+            <View style={styles.scrollViewWrapper}>
+                <ScrollView style={styles.avoidView}>
+                    <Text style={styles.loginHeader}>Sign Up</Text>
+                    <View style={[{marginBottom: 30}, styles.wrapper01]}>
+                        <Text style={[{color: 'white'}, styles.label]}>EMAIL</Text>
+                        <TextInput
+                            style={[{color: 'white', borderBottomColor: 'white'}, styles.inputFiled]}
+                            value={result.email}
+                            onChangeText={(val) => textInputChange(val)}
+                            autoCapitalize='none'
+                        />
+                    </View>
+                    <View style={[{marginBottom: 30}, styles.wrapper01]}>
+                        <Text style={[{color: 'white'}, styles.label]}>PASSWORD</Text>
+                        <TextInput
+                            style={[{color: 'white', borderBottomColor: 'white'}, styles.inputFiled]}
+                            value={result.password}
+                            onChangeText={(val) => handlePasswordChange(val)}
+                            autoCapitalize='none'
+                            secureTextEntry={true}
+                        />
+                    </View>
+                </ScrollView>
+                <View style={styles.buttonWrapper}>
+                    <TouchableOpacity style={[{opacity: 0.6}, styles.button]} onPress={handleSignup}>
+                        <Feather
+                            name='arrow-right'
+                            color={colors.green01}
+                            size={32}
+                            style={styles.icon}
+                        />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </KeyboardAvoidingView>
     );
 };
 
 export default Signup ;
 
 const styles = StyleSheet.create({
-    container: {
+    wrapper: {
+        display: "flex",
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
+        backgroundColor: colors.green01
     },
-    inputBox: {
-        width: '85%',
-        margin: 10,
-        padding: 15,
-        fontSize: 16,
-        borderColor: '#d3d3d3',
+    scrollViewWrapper: {
+        marginTop: 70,
+        flex: 1
+    },
+    avoidView: {
+        paddingLeft: 30,
+        paddingRight: 30,
+        paddingTop: 20,
+        flex:1
+    },
+    loginHeader: {
+        fontSize: 28,
+        color: colors.white,
+        fontWeight: "300",
+        marginBottom: 40
+    },
+    wrapper01: {
+        display: 'flex'
+    },
+    label: { fontWeight: "700", marginBottom: 10 },
+    inputFiled: {
         borderBottomWidth: 1,
-        textAlign: 'center'
+        paddingTop: 5,
+        paddingBottom: 5
+    },
+    showButton: {
+        position: "absolute",
+        right: 0
+    },
+    showButtonText: {
+        color: colors.white,
+        fontWeight: "700"
+    },
+    buttonWrapper: {
+        alignItems: "flex-end",
+        right: 20,
+        bottom: 20,
+        paddingTop: 0
     },
     button: {
-        marginTop: 30,
-        marginBottom: 20,
-        paddingVertical: 5,
-        alignItems: 'center',
-        backgroundColor: '#F6820D',
-        borderColor: '#F6820D',
-        borderWidth: 1,
-        borderRadius: 5,
-        width: 200
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 50,
+        width: 60,
+        height: 60,
+        backgroundColor: colors.white
     },
-    buttonText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#fff'
-    },
-    buttonSignup: {
-        fontSize: 12
+    icon: {
+        marginRight: -2,
+        marginTop: -2
     }
 })
