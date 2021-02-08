@@ -4,6 +4,7 @@ import {Feather} from '@expo/vector-icons';
 import colors from '../color';
 
 
+
 const PwInput = ({labelText, labelTextSize, labelColor, textColor, borderBottomColor, inputType}) => {
 
     const [data, setData] = useState({
