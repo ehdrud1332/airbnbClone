@@ -41,7 +41,7 @@ const Signup = ({navigation}) => {
 
         Firebase.auth()
             .createUserWithEmailAndPassword(result.email, result.password)
-            .then(() => console.log("12123"))
+            .then(() => navigation.navigate('ProfileScreen'))
             .catch(error => console.log(error))
 
     }

@@ -1,41 +1,92 @@
-import React from 'react';
-import {View, Text, ScrollView, StyleSheet, KeyboardAvoidingView} from 'react-native';
-import colors from '../color';
-import InputField from "../components/InputField";
-import NextArrowButton from "../components/buttons/NextArrowButton";
-import PwInput from "../components/PwInput";
+import React, {useState} from 'react';
+import Firebase from '../config/Firebase';
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView} from 'react-native';
+import {Feather} from '@expo/vector-icons';
+import colors from "../color";
 
-const Login = () => {
+
+const Login = ({navigation}) => {
+
+    const [result, setResult] = useState({
+        name: "",
+        email: "",
+        password: "",
+        check_textInputChange: false
+    })
+
+    const textInputChange = (val) => {
+        if(val.length !== 0) {
+            setResult({
+                ...result,
+                email: val,
+                check_textInputChange: true
+            })
+        } else {
+            setResult({
+                ...result,
+                email: val,
+                check_textInputChange: false
+            })
+        }
+    }
+
+    const handlePasswordChange = (val) => {
+        setResult({
+            ...result,
+            password: val
+        })
+    }
+
+    const handleSignup = () => {
+
+        Firebase.auth()
+            .signInWithEmailAndPassword(result.email, result.password)
+            .then(() => navigation.navigate('ProfileScreen'))
+            .catch(error => console.log(error))
+
+    }
+
     return (
-        <KeyboardAvoidingView style={styles.wrapper} behavior='padding'>
+        <KeyboardAvoidingView style={styles.wrapper} behavir='padding'>
             <View style={styles.scrollViewWrapper}>
                 <ScrollView style={styles.avoidView}>
                     <Text style={styles.loginHeader}>Login</Text>
-                    <InputField
-                        labelText="EMAIL ADDRESS"
-                        labelTextSize={14}
-                        labelColor={colors.white}
-                        textColor={colors.white}
-                        borderBottomColor={colors.white}
-                        inputType='email'
-                    />
-                    <PwInput
-                        labelText="PASSWORD"
-                        labelTextSize={14}
-                        labelColor={colors.white}
-                        textColor={colors.white}
-                        borderBottomColor={colors.white}
-                        inputType='password'
-
-                    />
+                    <View style={[{marginBottom: 30}, styles.wrapper01]}>
+                        <Text style={[{color: 'white'}, styles.label]}>EMAIL ADDRESS</Text>
+                        <TextInput
+                            style={[{color: 'white', borderBottomColor: 'white'}, styles.inputFiled]}
+                            value={result.email}
+                            onChangeText={(val) => textInputChange(val)}
+                            autoCapitalize='none'
+                        />
+                    </View>
+                    <View style={[{marginBottom: 30}, styles.wrapper01]}>
+                        <Text style={[{color: 'white'}, styles.label]}>PASSWORD</Text>
+                        <TextInput
+                            style={[{color: 'white', borderBottomColor: 'white'}, styles.inputFiled]}
+                            value={result.password}
+                            onChangeText={(val) => handlePasswordChange(val)}
+                            autoCapitalize='none'
+                            secureTextEntry={true}
+                        />
+                    </View>
                 </ScrollView>
-                <NextArrowButton />
+                <View style={styles.buttonWrapper}>
+                    <TouchableOpacity style={[{opacity: 0.6}, styles.button]} onPress={handleSignup}>
+                        <Feather
+                            name='arrow-right'
+                            color={colors.green01}
+                            size={32}
+                            style={styles.icon}
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
         </KeyboardAvoidingView>
     );
 };
 
-export default Login;
+export default Login ;
 
 const styles = StyleSheet.create({
     wrapper: {
@@ -58,5 +109,40 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontWeight: "300",
         marginBottom: 40
+    },
+    wrapper01: {
+        display: 'flex'
+    },
+    label: { fontWeight: "700", marginBottom: 10 },
+    inputFiled: {
+        borderBottomWidth: 1,
+        paddingTop: 5,
+        paddingBottom: 5
+    },
+    showButton: {
+        position: "absolute",
+        right: 0
+    },
+    showButtonText: {
+        color: colors.white,
+        fontWeight: "700"
+    },
+    buttonWrapper: {
+        alignItems: "flex-end",
+        right: 20,
+        bottom: 20,
+        paddingTop: 0
+    },
+    button: {
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 50,
+        width: 60,
+        height: 60,
+        backgroundColor: colors.white
+    },
+    icon: {
+        marginRight: -2,
+        marginTop: -2
     }
-});
+})
