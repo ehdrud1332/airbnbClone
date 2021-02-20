@@ -3,6 +3,8 @@ import Firebase from '../config/Firebase';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView} from 'react-native';
 import {Feather} from '@expo/vector-icons';
 import colors from "../color";
+import Notification from "../navigation/Notification";
+import Loader from "../components/Loader";
 
 
 const Login = ({navigation}) => {
@@ -11,8 +13,11 @@ const Login = ({navigation}) => {
         name: "",
         email: "",
         password: "",
-        check_textInputChange: false
+        check_textInputChange: false,
+        formValid: true
     })
+
+    const showNotification = result.formValid ? false : true
 
     const textInputChange = (val) => {
         if(val.length !== 0) {
@@ -28,6 +33,10 @@ const Login = ({navigation}) => {
                 check_textInputChange: false
             })
         }
+    }
+
+    const handleCloseNotification = () => {
+        alert("close Notification")
     }
 
     const handlePasswordChange = (val) => {
@@ -82,6 +91,19 @@ const Login = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
             </View>
+            {/*나중에 수정요망, error notification*/}
+            {/*<View>*/}
+            {/*    <Notification*/}
+            {/*        showNotification={showNotification}*/}
+            {/*        handleCloseNotification={handleCloseNotification}*/}
+            {/*        title="Error"*/}
+            {/*        message="Those credentials don't look right please try again"*/}
+            {/*    />*/}
+            {/*</View>*/}
+            <Loader
+                modalVisible={true}
+                animationType="fade"
+            />
         </KeyboardAvoidingView>
     );
 };
