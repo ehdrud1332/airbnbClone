@@ -14,10 +14,12 @@ const Login = ({navigation}) => {
         email: "",
         password: "",
         check_textInputChange: false,
-        formValid: true
+        formValid: true,
+        error: "",
+        loadingVisible: false,
     })
 
-    const showNotification = result.formValid ? false : true
+    // const showNotification = result.formValid ? false : true
 
     const textInputChange = (val) => {
         if(val.length !== 0) {
@@ -48,10 +50,17 @@ const Login = ({navigation}) => {
 
     const handleSignup = () => {
 
+        setResult({loadingVisible: true})
+
         Firebase.auth()
             .signInWithEmailAndPassword(result.email, result.password)
             .then(() => navigation.navigate('ProfileScreen'))
-            .catch(error => console.log(error))
+            .catch(error =>
+                setResult({
+                    error: console.log("아이디 또는 비밀번호가 일치하지 않습니다."),
+                    loadingVisible: false
+                })
+            );
 
     }
 
@@ -101,7 +110,7 @@ const Login = ({navigation}) => {
             {/*    />*/}
             {/*</View>*/}
             <Loader
-                modalVisible={true}
+                modalVisible={result.loadingVisible}
                 animationType="fade"
             />
         </KeyboardAvoidingView>
