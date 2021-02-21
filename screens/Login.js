@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import Firebase from '../config/Firebase';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView} from 'react-native';
-import {Feather} from '@expo/vector-icons';
+import {Feather, FontAwesome} from '@expo/vector-icons';
 import colors from "../color";
 import Notification from "../navigation/Notification";
 import Loader from "../components/Loader";
+import FadeInView from "../components/FadeInView";
 
 
 const Login = ({navigation}) => {
@@ -17,29 +18,11 @@ const Login = ({navigation}) => {
         formValid: true,
         error: "",
         loadingVisible: false,
+        check_markDown: 0,
+        secureTextEntry: true
     })
 
     // const showNotification = result.formValid ? false : true
-
-    const textInputChange = (val) => {
-        if(val.length !== 0) {
-            setResult({
-                ...result,
-                email: val,
-                check_textInputChange: true
-            })
-        } else {
-            setResult({
-                ...result,
-                email: val,
-                check_textInputChange: false
-            })
-        }
-    }
-
-    const handleCloseNotification = () => {
-        alert("close Notification")
-    }
 
     const handlePasswordChange = (val) => {
         setResult({
@@ -47,6 +30,25 @@ const Login = ({navigation}) => {
             password: val
         })
     }
+
+    const textInputChange = (val) => {
+        if(val.length !== 0) {
+            setResult({
+                ...result,
+                email: val,
+                check_textInputChange: true,
+            })
+        } else {
+            setResult({
+                ...result,
+                email: val,
+                check_textInputChange: false,
+            })
+        }
+    }
+
+
+
 
     const handleSignup = () => {
 
@@ -71,6 +73,15 @@ const Login = ({navigation}) => {
                     <Text style={styles.loginHeader}>Login</Text>
                     <View style={[{marginBottom: 30}, styles.wrapper01]}>
                         <Text style={[{color: 'white'}, styles.label]}>EMAIL ADDRESS</Text>
+                        {result.check_textInputChange ? (
+                            <FadeInView>
+                                <FontAwesome
+                                    name='check'
+                                    color={colors.white}
+                                    size={20}
+                                />
+                            </FadeInView>
+                        ) : (null)}
                         <TextInput
                             style={[{color: 'white', borderBottomColor: 'white'}, styles.inputFiled]}
                             value={result.email}
@@ -175,5 +186,10 @@ const styles = StyleSheet.create({
     icon: {
         marginRight: -2,
         marginTop: -2
+    },
+    checkmarkWrapper: {
+        position: 'absolute',
+        right: 0,
+        bottom: 12
     }
 })
