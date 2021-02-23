@@ -29,7 +29,8 @@ const SwitchNavigator = createSwitchNavigator({
     }
 },
     {
-        initialRouteName: 'HomeScreen'
+        initialRouteName: 'LoggedOut',
+        headerMode: 'none'
     })
 
 export default createAppContainer(SwitchNavigator);

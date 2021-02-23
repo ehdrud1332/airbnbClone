@@ -1,13 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import * as Expo from 'expo';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import firebase from "firebase";
 import {FontAwesome} from '@expo/vector-icons';
 import colors from '../color';
 import RoundedButton from "../components/buttons/RoundedButton";
-import firebase from "firebase";
 
 
 export default function LoggedOut ({navigation}) {
+
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+            } else {
+                alert("Your have not Logged in");
+                navigation.native("LoggedOut")
+            }
+        })
+    })
 
     return (
         <View style={styles.wrapper}>
@@ -20,14 +30,11 @@ export default function LoggedOut ({navigation}) {
                     Welcome to Airbnb Clone with React native
                 </Text>
                 <RoundedButton
-                    icon={<FontAwesome name='facebook' size={20} style={styles.facebookIcon}/>}
-                    text="Connect to facebook"
-                    backgroundColor={colors.white}
                 />
-                  <TouchableOpacity style={[styles.ButtonWrapper]} onPress={() => navigation.navigate("Signup")}>
-                    <View style={styles.ButtonTextWrapper}>
-                        <Text style={styles.buttonText}>Create Account</Text>
-                    </View>
+                <TouchableOpacity style={[styles.ButtonWrapper]} onPress={() => navigation.navigate("Signup")}>
+                <View style={styles.ButtonTextWrapper}>
+                    <Text style={styles.buttonText}>Create Account</Text>
+                </View>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.moreOptionsButton}
@@ -70,12 +77,6 @@ const styles = StyleSheet.create({
         fontWeight: "300",
         marginBottom: 40
     },
-    facebookIcon: {
-        color: colors.green01,
-        position: "relative",
-        left: 20,
-        zIndex: 8
-    },
     moreOptionsButton: {
         marginTop: 10,
     },
@@ -110,7 +111,8 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 16,
         width: "100%",
-        textAlign: "center"
+        textAlign: "center",
+        fontWeight: '600'
     },
     ButtonTextWrapper: {
         flexDirection: "row",
