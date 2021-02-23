@@ -1,10 +1,8 @@
 import React from 'react';
-import propTypes from 'prop-types'
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import colors from '../../color';
 
 const RoundedButton = ({text, backgroundColor, icon}) => {
-
 
     return (
         <TouchableOpacity style={[{backgroundColor}, styles.wrapper]}>
@@ -12,7 +10,6 @@ const RoundedButton = ({text, backgroundColor, icon}) => {
                 {icon}
                 <Text style={styles.buttonText}>{text}</Text>
             </View>
-
         </TouchableOpacity>
     );
 };

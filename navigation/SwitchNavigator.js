@@ -5,6 +5,8 @@ import Login from '../screens/Login';
 import Signup from "../screens/Signup";
 import ProfileScreen from "../screens/ProfileScreen";
 import ForgotPassword from "../components/ForgetPassword";
+import LoggedOut from "../screens/LoggedOut";
+import HomeScreen from "../screens/HomeScreen";
 
 const SwitchNavigator = createSwitchNavigator({
     Login: {
@@ -18,10 +20,16 @@ const SwitchNavigator = createSwitchNavigator({
     },
     ForgotPassword: {
         screen: ForgotPassword
+    },
+    LoggedOut: {
+        screen: LoggedOut
+    },
+    HomeScreen: {
+        screen: HomeScreen
     }
 },
     {
-        initialRouteName: 'ForgotPassword'
+        initialRouteName: 'HomeScreen'
     })
 
 export default createAppContainer(SwitchNavigator);

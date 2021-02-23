@@ -1,10 +1,14 @@
 import React from 'react';
+import * as Expo from 'expo';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {FontAwesome} from '@expo/vector-icons';
 import colors from '../color';
 import RoundedButton from "../components/buttons/RoundedButton";
+import firebase from "firebase";
 
-const LoggedOut = () => {
+
+export default function LoggedOut ({navigation}) {
+
     return (
         <View style={styles.wrapper}>
             <View style={styles.welcomeWrapper}>
@@ -20,9 +24,11 @@ const LoggedOut = () => {
                     text="Connect to facebook"
                     backgroundColor={colors.white}
                 />
-                <RoundedButton
-                    text="Create Account"
-                />
+                  <TouchableOpacity style={[styles.ButtonWrapper]} onPress={() => navigation.navigate("Signup")}>
+                    <View style={styles.ButtonTextWrapper}>
+                        <Text style={styles.buttonText}>Create Account</Text>
+                    </View>
+                </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.moreOptionsButton}
                 >
@@ -39,7 +45,6 @@ const LoggedOut = () => {
     );
 };
 
-export default LoggedOut;
 
 const styles = StyleSheet.create({
     wrapper: {
@@ -92,5 +97,23 @@ const styles = StyleSheet.create({
     linkButton: {
         borderBottomWidth: 1,
         borderBottomColor: colors.white,
+    },
+    ButtonWrapper: {
+        padding: 15,
+        display: "flex",
+        borderRadius: 40,
+        borderWidth: 1,
+        borderColor: colors.white,
+        marginBottom: 15,
+        alignItems: "center"
+    },
+    buttonText: {
+        fontSize: 16,
+        width: "100%",
+        textAlign: "center"
+    },
+    ButtonTextWrapper: {
+        flexDirection: "row",
+        justifyContent: "flex-end"
     },
 });

@@ -17,13 +17,21 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "foo.bar.com",
+      "config" : {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.247140277869-cj2q2ndjvn71v605ffprmfeurdeqh13r"
+        }
+      }
+
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "foo.bar.com"
     },
     "web": {
       "favicon": "./assets/favicon.png"
