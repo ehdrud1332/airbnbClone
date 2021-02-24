@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import colors from '../../color';
 import {FontAwesome} from "@expo/vector-icons";
 import * as Google from 'expo-google-app-auth';
 
-const RoundedButton = () => {
+class RoundedButton extends Component {
 
-    const signInAsync = async() => {
+    async signInAsync() {
         console.log("HomeScreen.js 6 | Logged In")
 
         try {
@@ -15,25 +15,41 @@ const RoundedButton = () => {
             });
 
             if (type === "success") {
-                console.log("LoginScreen.js 17 | success, navigation to profile" );
-                navigation.navigate("ProfileScreen", {user})
+                return this.props.navigation.navigate("RequestSendNotification", {user})
             }
         } catch (error) {
             console.log("LoginScreen.ks 19 | error with login", error)
         }
     }
 
-    return (
-        <TouchableOpacity style={[{}, styles.wrapper]} onPress={() => signInAsync()}>
-            <View style={styles.ButtonTextWrapper}>
-                <FontAwesome name='google' size={20} style={styles.facebookIcon}/>
-                <Text style={styles.buttonText}>Connect to facebook</Text>
-            </View>
-        </TouchableOpacity>
-    );
-};
+    render() {
+        return (
+            <TouchableOpacity style={[{}, styles.wrapper]} onPress={() => this.signInAsync()}>
+                <View style={styles.ButtonTextWrapper}>
+                    <FontAwesome name='google' size={20} style={styles.facebookIcon}/>
+                    <Text style={styles.buttonText}>Connect to facebook</Text>
+                </View>
+            </TouchableOpacity>
+        );
+    }
+}
 
 export default RoundedButton;
+
+// const RoundedButton = ({navigation}) => {
+//
+//     const signInAsync = async() => {
+//         console.log("HomeScreen.js 6 | Logged In")
+//
+//
+//     }
+//
+//     return (
+
+//     );
+// };
+//
+// export default RoundedButton;
 
 
 const styles = StyleSheet.create({

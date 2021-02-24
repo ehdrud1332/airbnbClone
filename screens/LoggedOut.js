@@ -3,21 +3,12 @@ import * as Expo from 'expo';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import firebase from "firebase";
 import {FontAwesome} from '@expo/vector-icons';
+import SplashScreen from 'react-native-splash-screen';
 import colors from '../color';
 import RoundedButton from "../components/buttons/RoundedButton";
 
 
 export default function LoggedOut ({navigation}) {
-
-    useEffect(() => {
-        firebase.auth().onAuthStateChanged(user => {
-            if(user) {
-            } else {
-                alert("Your have not Logged in");
-                navigation.native("LoggedOut")
-            }
-        })
-    })
 
     return (
         <View style={styles.wrapper}>

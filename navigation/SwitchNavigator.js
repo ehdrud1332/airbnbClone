@@ -9,19 +9,22 @@ import ProfileScreen from "../screens/ProfileScreen";
 import ForgotPassword from "../components/ForgetPassword";
 import LoggedOut from "../screens/LoggedOut";
 import DrawerStack from "./stack/DrawerStack";
+import RequestSendNotification from "../screens/RequestSendNotification";
 
 const RootStack = createStackNavigator();
 
 const SwitchNavigator = () => (
     <RootStack.Navigator
         headerMode='none'
+        initialRouteName='LoggedOut'
     >
+        <RootStack.Screen name='Notification' component={RequestSendNotification} />
+        <RootStack.Screen name='LoggedOut' component={LoggedOut} />
         <RootStack.Screen name='DrawerStack' component={DrawerStack} />
         <RootStack.Screen name='Login' component={Login} />
         <RootStack.Screen name='Signup' component={Signup} />
         <RootStack.Screen name='ProfileScreen' component={ProfileScreen} />
         <RootStack.Screen name='ForgotPassword' component={ForgotPassword} />
-        <RootStack.Screen name='LoggedOut' component={LoggedOut} />
 
     </RootStack.Navigator>
 )
