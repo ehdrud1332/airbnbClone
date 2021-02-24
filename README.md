@@ -1,7 +1,7 @@
 ## 주요기능
 
 * Firebase API 연동 및 테스트
-* Firebase APIf를 이용해서 Google Login 구현
+* Firebase API를 이용해서 Google Login 구현
 * Firebase API를 이용해서 이메일로 패스워드 변경하기
 * Firebase API를 이용해서 회원가입 및 로그인 페이지 구현
 
