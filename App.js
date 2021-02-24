@@ -1,13 +1,18 @@
 import React from 'react';
-import LoggedOut from "./screens/LoggedOut";
-import Login from './screens/Login';
-import Signup from "./screens/Signup";
-import {Text, View} from 'react-native';
-import SwitchNavigator from '././navigation/SwitchNavigator';
+import {NavigationContainer} from '@react-navigation/native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import SwitchNavigator from "./navigation/SwitchNavigator";
+import DrawerScreen from "./screens/DrawerScreen";
+
+const Drawer = createDrawerNavigator();
 
 const App = () => {
     return (
-        <SwitchNavigator />
+        <NavigationContainer>
+            <Drawer.Navigator drawerContent={props => <DrawerScreen {...props}/>}>
+                <Drawer.Screen name='HomeDrawer' component={SwitchNavigator}/>
+            </Drawer.Navigator>
+        </NavigationContainer>
     );
 };
 
