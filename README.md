@@ -5,6 +5,18 @@
 * Firebase API를 이용해서 이메일로 패스워드 변경하기
 * Firebase API를 이용해서 회원가입 및 로그인 페이지 구현
 
+## 사용한 패키지
+~~~ts
+"packages": [
+"React"
+"React Hooks"
+"Firebase"
+"Expo"
+"expo-google-app-auth"
+"react-native-animatable"
+]
+~~~
+
 ## 완성화면
 
 |Feature|Description|
